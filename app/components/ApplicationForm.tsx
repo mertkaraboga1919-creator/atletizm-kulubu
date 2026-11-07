@@ -14,6 +14,10 @@ export default function ApplicationForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Spam / Çift tıklama koruması
+    if (loading) return;
+
     setLoading(true);
     setStatusMessage(null);
 
@@ -29,7 +33,10 @@ export default function ApplicationForm() {
     } catch {
       setStatusMessage({ success: false, text: 'Bir hata oluştu, lütfen tekrar deneyin.' });
     } finally {
-      setLoading(false);
+      // Spam koruması için butonun hızlıca tekrar basılmasını önlemek adına kısa bir gecikme (1.5 saniye) koyabiliriz
+      setTimeout(() => {
+        setLoading(false);
+      }, 1500);
     }
   };
 
@@ -55,6 +62,7 @@ export default function ApplicationForm() {
           type="tel"
           required
           maxLength={15}
+          placeholder="05XXXXXXXXX"
           value={formData.phone}
           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
           className="mt-1 block w-full rounded-md border border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
