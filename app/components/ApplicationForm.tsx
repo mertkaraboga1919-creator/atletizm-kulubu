@@ -36,7 +36,7 @@ export default function ApplicationForm() {
       // Spam koruması için butonun hızlıca tekrar basılmasını önlemek adına kısa bir gecikme (1.5 saniye) koyabiliriz
       setTimeout(() => {
         setLoading(false);
-      }, 1500);
+      }, 3000);
     }
   };
 
